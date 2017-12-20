@@ -2605,3 +2605,15 @@ class FormsTestCase(SimpleTestCase):
         self.assertEqual(force_text(form), form.__html__())
         self.assertTrue(hasattr(form['username'], '__html__'))
         self.assertEqual(force_text(form['username']), form['username'].__html__())
+
+    def test_class_prefix(self):
+        class Person(Form):
+            first_name = CharField()
+            prefix = 'foo'
+
+        p = Person()
+        self.assertEqual(p.prefix, 'foo')
+
+        p = Person(prefix='bar')
+        self.assertEqual(p.prefix, 'bar')
+                
